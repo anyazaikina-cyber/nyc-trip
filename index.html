@@ -81,12 +81,20 @@ const DAYS = [
     {n:"Early night", d:"Riga is seven hours ahead and the wedding is tomorrow"}
    ]}
   ]},
- {id:"d6", date:"2026-11-06", tab:"Fri 6", title:"Wedding day", sub:"Nothing else planned",
+ {id:"d6", date:"2026-11-06", tab:"Fri 6", title:"Wedding day 💐", sub:"Reception and afterparty in Williamsburg, Brooklyn",
+  tip:"Uber or Lyft is easiest. Leave the hotel by about 17:15 for Friday rush hour. Subway backup: N/W to Queensboro Plaza, 7 to Court Sq, G to Metropolitan Av, then a 10-min walk (about 45 min).",
   sections:[
    {h:"Morning", items:[
-    {n:"Coffee and a walk in Astoria Park", d:"Views of the Hell Gate and RFK bridges", q:"Astoria Park, Queens, NY"}
+    {n:"Coffee and a walk in Astoria Park", d:"Views of the Hell Gate and RFK bridges", q:"Astoria Park, Queens, NY"},
+    {n:"Get ready, no rush"}
    ]},
-   {h:"Afternoon", items:[{n:"Wedding 💐"}]}
+   {h:"Evening", items:[
+    {n:"Uber/Lyft to Lillistar", t:"17:15", d:"25–40 min from the hotel"},
+    {n:"Reception at Lillistar", t:"18:00–22:00", d:"353 Bedford Ave, Brooklyn, NY 11211", q:"Lillistar, 353 Bedford Ave, Brooklyn, NY 11211"},
+    {n:"Walk to the afterparty", d:"About 20 min north along Bedford Ave, or a short Uber"},
+    {n:"Afterparty at The Bedford", t:"22:15–01:00", d:"110 Bedford Ave, Brooklyn, NY 11249", q:"The Bedford, 110 Bedford Avenue, Brooklyn, NY 11249"},
+    {n:"Uber/Lyft home", t:"~01:00", d:"Book from inside; yellow cabs are scarce at night. 20–30 min."}
+   ]}
   ]},
  {id:"d7", date:"2026-11-07", tab:"Sat 7", title:"Midtown classics", sub:"N/W to Times Sq–42 St. Everything is within a 15-minute walk.",
   tip:"Library reading room: visiting hour 10:00–11:00 (last entry 10:50), or the free 15-min tour at 11:20. Sign up in the McGraw Rotunda, 3rd floor, from 10:50. First 25 people only.",
@@ -185,8 +193,7 @@ const INFO = `
 <div class="dayhead"><h2>Trip essentials</h2><div class="sub">Hotel, bookings and practical tips</div></div>
 <div class="card"><h4>🏨 voco Astoria</h4>
  <p>30-17 31st Street, Astoria, NY 11102<br>Check-in 16:00 · check-out 11:00<br>Next to 30 Av station (N/W)</p>
- <div class="btnrow"><a class="btn" href="tel:+19177372900">Call front desk</a>
- <a class="btn alt" href="${M('voco Astoria, 30-17 31st Street, Astoria, NY 11102')}" target="_blank" rel="noopener">Map</a></div></div>
+ <div class="btnrow"><a class="btn alt" href="${M('voco Astoria, 30-17 31st Street, Astoria, NY 11102')}" target="_blank" rel="noopener">Map</a></div></div>
 <section><h3>Before you fly</h3><div id="prelist"></div></section>
 <div class="card"><h4>🎟 What to book</h4><ul>
  <li><b>FRIENDS Experience</b> (Sat): a few days before, optional</li>
