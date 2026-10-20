@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f2a44">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="NYC trip">
+<title>NYC Trip</title>
+<style>
+:root{
+  --bg:#f6f4ef; --card:#ffffff; --ink:#1d1f24; --muted:#6b6f78; --line:#e4e0d6;
+  --accent:#d9480f; --accent-soft:#fff0e8; --nav:#1f2a44; --nav-ink:#ffffff; --done:#9aa0a8;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#14161b; --card:#1d2027; --ink:#eceae4; --muted:#9a9ea8; --line:#2c303a;
+    --accent:#ff8a50; --accent-soft:#2b211c; --nav:#0f1320; --done:#5f646d;}
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-text-size-adjust:100%}
+header{background:var(--nav);color:var(--nav-ink);padding:calc(14px + env(safe-area-inset-top)) 16px 0;position:sticky;top:0;z-index:5}
+header h1{margin:0;font-size:20px;letter-spacing:.2px}
+header p{margin:2px 0 10px;font-size:13px;opacity:.75}
+nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;border:0;border-radius:999px;padding:8px 13px;font:inherit;font-size:14px;
+  background:rgba(255,255,255,.12);color:var(--nav-ink);cursor:pointer;white-space:nowrap}
+nav button[aria-selected="true"]{background:var(--accent);color:#fff;font-weight:600}
+nav button .today{display:inline-block;width:6px;height:6px;border-radius:50%;background:#7CFC9A;margin-left:6px;vertical-align:middle}
+main{padding:14px 16px calc(40px + env(safe-area-inset-bottom));max-width:640px;margin:0 auto}
+.dayhead h2{margin:4px 0 2px;font-size:22px}
+.dayhead .sub{color:var(--muted);font-size:14px;margin-bottom:12px}
+.tip{background:var(--accent-soft);border-left:3px solid var(--accent);padding:10px 12px;border-radius:8px;font-size:14px;margin:0 0 14px}
+section{margin:0 0 18px}
+section h3{font-size:13px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin:0 0 8px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start}
+.item input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--accent);flex:0 0 auto}
+.item .body{flex:1;min-width:0}
+.item .name{font-weight:600}
+.item .time{color:var(--accent);font-weight:600;font-size:13px;margin-right:6px}
+.item .note{color:var(--muted);font-size:14px;margin-top:2px}
+.item.done .name,.item.done .note{color:var(--done);text-decoration:line-through}
+.item .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-left:6px;vertical-align:1px}
+.map{flex:0 0 auto;align-self:center;text-decoration:none;font-size:13px;font-weight:600;color:var(--accent);
+  border:1px solid var(--accent);border-radius:999px;padding:5px 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.card h4{margin:0 0 6px;font-size:16px}
+.card p,.card li{font-size:14px;margin:4px 0}
+.card ul{padding-left:18px;margin:4px 0}
+.card a{color:var(--accent)}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.btn{display:inline-block;text-decoration:none;font-size:14px;font-weight:600;padding:8px 12px;border-radius:10px;background:var(--accent);color:#fff}
+.btn.alt{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.progress{font-size:13px;color:var(--muted);margin:-6px 0 12px}
+footer{color:var(--muted);font-size:12px;text-align:center;padding:10px 16px 30px}
+</style>
+</head>
+<body>
+<header>
+  <h1>New York, 5–11 Nov</h1>
+  <p id="countdown">Astoria base · wedding on Fri 6</p>
+  <nav id="tabs" role="tablist"></nav>
+</header>
+<main id="view"></main>
+<footer>Ticks are saved on this phone only. Check opening hours for small shops before you go.</footer>
+
+<script>
+const M = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+
+const DAYS = [
+ {id:"d5", date:"2026-11-05", tab:"Thu 5", title:"Arrive and settle in", sub:"Keep it easy: no tickets, no plans",
+  sections:[
+   {h:"Afternoon", items:[
+    {n:"Taxi from JFK", d:"Official taxi rank only (follow Ground Transportation). Metered to Queens, roughly $50–70 with tip, 30–60 min."},
+    {n:"Check in at voco Astoria", t:"16:00", d:"30-17 31st St, next to 30 Av station", q:"voco Astoria, 30-17 31st Street, Astoria, NY 11102"}
+   ]},
+   {h:"Evening", items:[
+    {n:"Dinner on Ditmars Blvd or 30th Ave", d:"Astoria's Greek tavernas", q:"Ditmars Boulevard, Astoria, NY"},
+    {n:"Early night", d:"Riga is seven hours ahead and the wedding is tomorrow"}
+   ]}
+  ]},
+ {id:"d6", date:"2026-11-06", tab:"Fri 6", title:"Wedding day", sub:"Nothing else planned",
+  sections:[
+   {h:"Morning", items:[
+    {n:"Coffee and a walk in Astoria Park", d:"Views of the Hell Gate and RFK bridges", q:"Astoria Park, Queens, NY"}
+   ]},
+   {h:"Afternoon", items:[{n:"Wedding 💐"}]}
+  ]},
+ {id:"d7", date:"2026-11-07", tab:"Sat 7", title:"Midtown classics", sub:"N/W to Times Sq–42 St. Everything is within a 15-minute walk.",
+  tip:"Library reading room: visiting hour 10:00–11:00 (last entry 10:50), or the free 15-min tour at 11:20. Sign up in the McGraw Rotunda, 3rd floor, from 10:50. First 25 people only.",
+  sections:[
+   {h:"Morning", items:[
+    {n:"New York Public Library", t:"10:00", d:"Rose Main Reading Room. Allow about an hour.", q:"New York Public Library Stephen A. Schwarzman Building"},
+    {n:"Bryant Park Winter Village", d:"Free ice rink and 180+ holiday stalls behind the library", q:"Bryant Park, New York"}
+   ]},
+   {h:"Afternoon", items:[
+    {n:"Grand Central Terminal", d:"Look up at the main concourse ceiling", q:"Grand Central Terminal"},
+    {n:"Fifth Avenue to St Patrick's Cathedral", q:"St. Patrick's Cathedral, New York"},
+    {n:"Rockefeller Center", d:"The Christmas tree arrives today (Meet the Tree Day). Not lit yet.", q:"Rockefeller Center"}
+   ]},
+   {h:"Evening", items:[
+    {n:"Central Perk coffeehouse", d:"Orange sofa, walk-in", q:"Central Perk Coffeehouse, 20 Times Square, New York"},
+    {n:"Times Square after dark", q:"Times Square"},
+    {n:"The FRIENDS Experience", tag:"optional · book", d:"Full set recreation, 60–90 min", q:"The FRIENDS Experience, 130 East 23rd Street, New York"}
+   ]}
+  ]},
+ {id:"d8", date:"2026-11-08", tab:"Sun 8", title:"Central Park and the Met", sub:"N/W to 5 Av/59 St",
+  tip:"Buy Met tickets online the day before to skip the desk queue.",
+  sections:[
+   {h:"Morning", items:[
+    {n:"Central Park: the Mall", q:"The Mall, Central Park"},
+    {n:"Bethesda Terrace", q:"Bethesda Terrace, Central Park"}
+   ]},
+   {h:"Afternoon", items:[
+    {n:"The Met", d:"Leave the park at 82nd St. Pick two or three wings.", q:"The Metropolitan Museum of Art"}
+   ]}
+  ]},
+ {id:"d9", date:"2026-11-09", tab:"Mon 9", title:"West Village, then shopping east", sub:"N/W to 8 St–NYU, then walk west",
+  tip:"Shops are in walking order, about 30 min end to end. Pick four or five. ROOME is the top pick.",
+  sections:[
+   {h:"Morning · West Village", items:[
+    {n:"Washington Square Park", q:"Washington Square Park"},
+    {n:"Magnolia Bakery", d:"The Sex and the City cupcake stop", q:"Magnolia Bakery, 401 Bleecker Street, New York"},
+    {n:"Carrie's stoop", d:"66 Perry St. Photos from the pavement only.", q:"66 Perry Street, New York"},
+    {n:"The Friends building", d:"Bedford St & Grove St, exterior only", q:"90 Bedford Street, New York"},
+    {n:"Lunch in the Village"}
+   ]},
+   {h:"SoHo · Broome St", items:[
+    {n:"Flying Solo", d:"Rotating independent designers", q:"Flying Solo, 419 Broome Street, New York"},
+    {n:"3NY", d:"Eclectic concept store", q:"3NY, 448 Broome Street, New York"}
+   ]},
+   {h:"Nolita", items:[
+    {n:"Lingo", d:"Handmade, limited-edition pieces by emerging designers", q:"Lingo, 229 Mott Street, New York"},
+    {n:"McNally Jackson", d:"Independent bookshop, good for a break", q:"McNally Jackson, 52 Prince Street, New York"}
+   ]},
+   {h:"Lower East Side", items:[
+    {n:"ROOME", tag:"top pick", d:"Emerging Korean and Asian designers, closest to Gimaguas", q:"ROOME, 324 Grand Street, New York"},
+    {n:"Café Forgot", d:"Emerging designers, some cheaper pieces", q:"Cafe Forgot, 29 Ludlow Street, New York"},
+    {n:"Sandy Liang", d:"Playful, girlish New York label", q:"Sandy Liang store, Orchard Street, New York"},
+    {n:"ESSX NYC", d:"Darker, fashion-forward. Head for the sale racks.", q:"ESSX NYC, 140 Essex Street, New York"},
+    {n:"Assembly New York", d:"Baserange, Collina Strada, Sandy Liang and more", q:"Assembly New York, 170 Ludlow Street, New York"},
+    {n:"DUO NYC", tag:"optional", d:"East Village, 15 min north. Vintage and minimal.", q:"DUO NYC, 324 East 9th Street, New York"}
+   ]}
+  ]},
+ {id:"d10", date:"2026-11-10", tab:"Tue 10", title:"Brooklyn, the bridge and a boat home", sub:"N/W to 14 St–Union Sq, then L to Bedford Av (about 40 min)",
+  tip:"Sunset is around 16:45. Aim to start the bridge walk at about 16:00.",
+  sections:[
+   {h:"Late morning · Williamsburg", items:[
+    {n:"Maimoun", d:"Young independent designers, closest to your taste", q:"Maimoun, 111 Grand Street, Brooklyn"},
+    {n:"Marmalade", d:"Independent boutique, more accessible prices", q:"Marmalade, 285 Grand Street, Brooklyn"},
+    {n:"Tangerine", d:"Art-school, cool-girl independent labels", q:"Tangerine, 616 Lorimer Street, Brooklyn"},
+    {n:"Vintage on Grand St and Bedford Ave", q:"Bedford Avenue, Williamsburg, Brooklyn"},
+    {n:"Lunch in Williamsburg"}
+   ]},
+   {h:"Afternoon · DUMBO", items:[
+    {n:"NYC Ferry to DUMBO", d:"East River route. Buy in the NYC Ferry app or at the pier.", q:"NYC Ferry North Williamsburg"},
+    {n:"Manhattan Bridge view", d:"Washington St", q:"Washington Street and Water Street, Brooklyn"},
+    {n:"Brooklyn Bridge Park", q:"Brooklyn Bridge Park"}
+   ]},
+   {h:"Sunset and evening", items:[
+    {n:"Walk the Brooklyn Bridge into Manhattan", t:"~16:00", d:"30–40 min", q:"Brooklyn Bridge pedestrian entrance, Washington Street, Brooklyn"},
+    {n:"9/11 Memorial", tag:"optional", q:"9/11 Memorial, New York"},
+    {n:"Century 21", tag:"optional", d:"Discount designer fashion", q:"Century 21, 22 Cortlandt Street, New York"},
+    {n:"NYC Ferry home from Pier 11", d:"Astoria route, under the bridges. Lit-up skyline.", q:"Pier 11 Wall Street, New York"}
+   ]}
+  ]},
+ {id:"d11", date:"2026-11-11", tab:"Wed 11", title:"Fly home", sub:"JFK · 17:35 · be at the airport by 14:30",
+  tip:"Pack the night before. Ask the front desk to hold your bags after check-out.",
+  sections:[
+   {h:"Morning", items:[
+    {n:"Check out", t:"11:00", d:"Leave bags with the front desk"},
+    {n:"Breakfast in Astoria"},
+    {n:"Gantry Plaza State Park", tag:"optional", d:"Classic Midtown skyline view", q:"Gantry Plaza State Park"}
+   ]},
+   {h:"Afternoon", items:[
+    {n:"Uber/Lyft to JFK", t:"13:00", d:"Or ask the front desk to call a car. 40–60 min."},
+    {n:"Flight", t:"17:35"}
+   ]}
+  ]}
+];
+
+const INFO = `
+<div class="dayhead"><h2>Trip essentials</h2><div class="sub">Hotel, bookings and practical tips</div></div>
+<div class="card"><h4>🏨 voco Astoria</h4>
+ <p>30-17 31st Street, Astoria, NY 11102<br>Check-in 16:00 · check-out 11:00<br>Next to 30 Av station (N/W)</p>
+ <div class="btnrow"><a class="btn" href="tel:+19177372900">Call front desk</a>
+ <a class="btn alt" href="${M('voco Astoria, 30-17 31st Street, Astoria, NY 11102')}" target="_blank" rel="noopener">Map</a></div></div>
+<section><h3>Before you fly</h3><div id="prelist"></div></section>
+<div class="card"><h4>🎟 What to book</h4><ul>
+ <li><b>FRIENDS Experience</b> (Sat): a few days before, optional</li>
+ <li><b>The Met</b> (Sun): online the day before, no timed slot needed</li>
+ <li><b>Circle Line</b> (Tue): only if you choose it over the NYC Ferry</li>
+ <li>No booking needed: library, Grand Central, parks, 9/11 plaza, ferries, shops</li></ul></div>
+<div class="card"><h4>✈️ JFK transfers</h4>
+ <p><b>Arriving:</b> official taxi rank, metered to Queens (about $50–70 with tip). Or AirTrain to Jamaica plus subway ($11.75, 75–90 min, stairs).</p>
+ <p><b>Leaving:</b> Uber/Lyft from the hotel at about 13:00 for a 17:35 flight.</p></div>
+<div class="card"><h4>🚇 Getting around</h4><ul>
+ <li>Tap your contactless card at the gate. Fares cap after 12 rides in 7 days.</li>
+ <li>N/W from 30 Av goes direct to 5 Av/59 St, Times Sq, Union Sq and Prince St.</li>
+ <li>Check Google Maps on the day for weekend service changes.</li></ul></div>
+<div class="card"><h4>💵 Money</h4><ul>
+ <li>Sales tax (about 8.9%) isn't in the price on the tag.</li>
+ <li>Clothing and shoes under $110 per item are tax-exempt.</li>
+ <li>Tip 18–20% in restaurants, $1–2 per drink in bars.</li></ul></div>
+<div class="card"><h4>🧥 Weather</h4><p>Usually 5–15°C in early November, colder on the water. Bring a warm layer for the boat.</p></div>
+`;
+
+const PRE = [
+ {n:"ESTA approved", d:"Official site only: esta.cbp.dhs.gov ($40)"},
+ {n:"Travel insurance bought", d:"Check missed-connection cover"},
+ {n:"US eSIM set up", d:"EU roaming doesn't cover the US"},
+ {n:"Plug adapter (type A/B)"},
+ {n:"Bank card with low foreign fees"},
+ {n:"Warm layer and comfortable shoes"}
+];
+
+// ---- storage (per phone, safe if unavailable)
+const KEY = "nyc-trip-ticks-v1";
+let ticks = {};
+try { ticks = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e) { ticks = {}; }
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(ticks)); } catch(e) {} }
+
+function nyDate(){
+  try { return new Intl.DateTimeFormat("en-CA",{timeZone:"America/New_York"}).format(new Date()); }
+  catch(e){ return new Date().toISOString().slice(0,10); }
+}
+const todayStr = nyDate();
+
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+function itemHTML(it, id){
+  const done = !!ticks[id];
+  return `<label class="item${done?" done":""}">
+    <input type="checkbox" data-id="${id}"${done?" checked":""}>
+    <div class="body"><div class="name">${it.t?`<span class="time">${esc(it.t)}</span>`:""}${esc(it.n)}${it.tag?`<span class="tag">${esc(it.tag)}</span>`:""}</div>
+    ${it.d?`<div class="note">${esc(it.d)}</div>`:""}</div>
+    ${it.q?`<a class="map" href="${M(it.q)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Map</a>`:""}
+  </label>`;
+}
+
+function renderDay(day){
+  let total=0, done=0, html="";
+  day.sections.forEach((s,si)=>{
+    html += `<section><h3>${esc(s.h)}</h3>`;
+    s.items.forEach((it,ii)=>{ const id=`${day.id}-${si}-${ii}`; total++; if(ticks[id]) done++; html += itemHTML(it,id); });
+    html += `</section>`;
+  });
+  return `<div class="dayhead"><h2>${esc(day.title)}</h2><div class="sub">${esc(day.sub||"")}</div></div>
+   <div class="progress">${done} of ${total} done</div>
+   ${day.tip?`<div class="tip">${esc(day.tip)}</div>`:""}${html}`;
+}
+
+function render(tabId){
+  const view = document.getElementById("view");
+  if(tabId==="info"){
+    view.innerHTML = INFO;
+    document.getElementById("prelist").innerHTML = PRE.map((it,i)=>itemHTML(it,"pre-"+i)).join("");
+  } else {
+    view.innerHTML = renderDay(DAYS.find(d=>d.id===tabId));
+  }
+  document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected", b.dataset.tab===tabId));
+  try { sessionStorage.setItem("nyc-tab", tabId); } catch(e) {}
+  window.scrollTo(0,0);
+}
+
+document.getElementById("view").addEventListener("change", e=>{
+  const id = e.target.dataset && e.target.dataset.id; if(!id) return;
+  if(e.target.checked) ticks[id]=1; else delete ticks[id];
+  save();
+  e.target.closest(".item").classList.toggle("done", e.target.checked);
+  const p = document.querySelector(".progress");
+  if(p){ const boxes=[...document.querySelectorAll("#view .item input")]; p.textContent = `${boxes.filter(b=>b.checked).length} of ${boxes.length} done`; }
+});
+
+// tabs
+const nav = document.getElementById("tabs");
+const tabs = [{id:"info", tab:"Essentials"}, ...DAYS];
+nav.innerHTML = tabs.map(t=>`<button role="tab" data-tab="${t.id}">${esc(t.tab)}${t.date===todayStr?'<span class="today"></span>':""}</button>`).join("");
+nav.addEventListener("click", e=>{ const b=e.target.closest("button"); if(b) render(b.dataset.tab); });
+
+// countdown line
+(function(){
+  const start = new Date("2026-11-05T00:00:00"), now = new Date(nyDate()+"T00:00:00");
+  const days = Math.round((start-now)/86400000);
+  const el = document.getElementById("countdown");
+  if(days>1) el.textContent = `${days} days to go · Astoria base · wedding on Fri 6`;
+  else if(days===1) el.textContent = "Tomorrow! Check your ESTA and pack a warm layer";
+  else if(todayStr<="2026-11-11") el.textContent = "You're in New York 🗽";
+})();
+
+// initial tab: today during the trip, else last viewed, else essentials
+let start = "info";
+const todayDay = DAYS.find(d=>d.date===todayStr);
+if(todayDay) start = todayDay.id;
+else { try { start = sessionStorage.getItem("nyc-tab") || "info"; } catch(e) {} }
+render(start);
+const sel = nav.querySelector(`[data-tab="${start}"]`); if(sel) sel.scrollIntoView({inline:"center", block:"nearest"});
+</script>
+</body>
+</html>
