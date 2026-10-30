@@ -96,7 +96,7 @@ const DAYS = [
     {n:"Uber/Lyft home", t:"~01:00", d:"Book from inside; yellow cabs are scarce at night. 20–30 min."}
    ]}
   ]},
- {id:"d7", date:"2026-11-07", tab:"Sat 7", title:"Midtown classics", sub:"N/W to Times Sq–42 St. Everything is within a 15-minute walk.",
+ {id:"d7", date:"2026-11-07", tab:"Sat 7", title:"Midtown classics and MoMA", sub:"N/W to Times Sq–42 St. Everything is within a 15-minute walk.",
   tip:"Library reading room: visiting hour 10:00–11:00 (last entry 10:50), or the free 15-min tour at 11:20. Sign up in the McGraw Rotunda, 3rd floor, from 10:50. First 25 people only.",
   sections:[
    {h:"Morning", items:[
@@ -104,11 +104,14 @@ const DAYS = [
     {n:"Bryant Park Winter Village", d:"Free ice rink and 180+ holiday stalls behind the library", q:"Bryant Park, New York"}
    ]},
    {h:"Afternoon", items:[
-    {n:"Grand Central Terminal", d:"Look up at the main concourse ceiling", q:"Grand Central Terminal"},
+    {n:"Grand Central Terminal", tag:"quick look", d:"15 minutes is enough. Look up at the concourse ceiling.", q:"Grand Central Terminal"},
     {n:"Fifth Avenue to St Patrick's Cathedral", q:"St. Patrick's Cathedral, New York"},
-    {n:"Rockefeller Center", d:"The Christmas tree arrives today (Meet the Tree Day). Not lit yet.", q:"Rockefeller Center"}
+    {n:"Rockefeller Center", d:"The Christmas tree arrives today (Meet the Tree Day). Not lit yet.", q:"Rockefeller Center"},
+    {n:"MoMA", tag:"book online", d:"11 W 53rd St, 2 min from Rockefeller Center. About 2 hours: focus on the 5th floor (Van Gogh, Monet, Picasso, Warhol).", q:"Museum of Modern Art, 11 West 53rd Street, New York"},
+    {n:"MoMA Design Store", tag:"🛍 gift", d:"Best gift: a MoMA design object. Across the street from the museum.", q:"MoMA Design Store, 44 West 53rd Street, New York"}
    ]},
    {h:"Evening", items:[
+    {n:"Yankees Clubhouse", tag:"🛍 cap", d:"Most iconic: a Yankees cap. 745 Seventh Ave, on the way to Times Square.", q:"Yankees Clubhouse, 745 7th Avenue, New York, NY 10019"},
     {n:"Central Perk coffeehouse", d:"Orange sofa, walk-in", q:"Central Perk Coffeehouse, 20 Times Square, New York"},
     {n:"Times Square after dark", q:"Times Square"},
     {n:"The FRIENDS Experience", tag:"optional · book", d:"Full set recreation, 60–90 min", q:"The FRIENDS Experience, 130 East 23rd Street, New York"}
@@ -161,7 +164,7 @@ const DAYS = [
     {n:"Maimoun", d:"Young independent designers, closest to your taste", q:"Maimoun, 111 Grand Street, Brooklyn"},
     {n:"Marmalade", d:"Independent boutique, more accessible prices", q:"Marmalade, 285 Grand Street, Brooklyn"},
     {n:"Tangerine", d:"Art-school, cool-girl independent labels", q:"Tangerine, 616 Lorimer Street, Brooklyn"},
-    {n:"Vintage on Grand St and Bedford Ave", q:"Bedford Avenue, Williamsburg, Brooklyn"},
+    {n:"Vintage on Grand St and Bedford Ave", tag:"🛍 sweatshirt", d:"Best fashion find: a vintage NYC sweatshirt or T-shirt.", q:"Bedford Avenue, Williamsburg, Brooklyn"},
     {n:"Lunch in Williamsburg"}
    ]},
    {h:"Afternoon · DUMBO", items:[
@@ -201,7 +204,12 @@ const INFO = `
  <p><b>Policy no.</b> LV26-CN-00062492-9</p>
  <p>If you're unwell, BTA can arrange a video or phone consultation with a Latvian doctor on the same number. Ring them before going to a US clinic if you can, because they can point you somewhere they work with.</p></div>
 <section><h3>Before you fly</h3><div id="prelist"></div></section>
+<div class="card"><h4>🛍 Shopping list</h4><ul>
+ <li><b>Most iconic:</b> Yankees cap · Yankees Clubhouse, 745 Seventh Ave (Sat evening)</li>
+ <li><b>Best fashion find:</b> vintage NYC sweatshirt or T-shirt · Williamsburg vintage shops (Tue), or DUO NYC (Mon)</li>
+ <li><b>Best gift:</b> MoMA design object · MoMA Design Store, 44 W 53rd St (Sat)</li></ul></div>
 <div class="card"><h4>🎟 What to book</h4><ul>
+ <li><b>MoMA</b> (Sat): online a day or two before, weekends get busy</li>
  <li><b>FRIENDS Experience</b> (Sat): a few days before, optional</li>
  <li><b>The Met</b> (Sun): online the day before, no timed slot needed</li>
  <li><b>Circle Line</b> (Tue): only if you choose it over the NYC Ferry</li>
