@@ -96,32 +96,38 @@ const DAYS = [
     {n:"Uber/Lyft home", t:"~01:00", d:"Book from inside; yellow cabs are scarce at night. 20–30 min."}
    ]}
   ]},
- {id:"d7", date:"2026-11-07", tab:"Sat 7", title:"Midtown classics and MoMA", sub:"N/W to Times Sq–42 St. Everything is within a 15-minute walk.",
-  tip:"Library reading room: visiting hour 10:00–11:00 (last entry 10:50), or the free 15-min tour at 11:20. Sign up in the McGraw Rotunda, 3rd floor, from 10:50. First 25 people only.",
+ {id:"d7b", date:"2026-11-07", tab:"Sat 7", title:"Talea, Williamsburg and the Brooklyn Bridge", sub:"Late night yesterday, so a slow start. Leave the hotel by about 11:00.",
+  tip:"Getting to Talea: Uber/Lyft is easiest (25–35 min). By subway, check Google Maps on the day, as weekend L and G service often changes. Sunset is around 16:45, so aim to start the bridge walk at about 16:00.",
   sections:[
    {h:"Morning", items:[
-    {n:"New York Public Library", t:"10:00", d:"Rose Main Reading Room. Allow about an hour.", q:"New York Public Library Stephen A. Schwarzman Building"},
-    {n:"Bryant Park Winter Village", d:"Free ice rink and 180+ holiday stalls behind the library", q:"Bryant Park, New York"}
+    {n:"Slow breakfast in Astoria"},
+    {n:"Head to Williamsburg", t:"~11:00", d:"Uber/Lyft, or subway via Google Maps"}
    ]},
-   {h:"Afternoon", items:[
-    {n:"Grand Central Terminal", tag:"quick look", d:"15 minutes is enough. Look up at the concourse ceiling.", q:"Grand Central Terminal"},
-    {n:"Fifth Avenue to St Patrick's Cathedral", q:"St. Patrick's Cathedral, New York"},
-    {n:"Rockefeller Center", d:"The Christmas tree arrives today (Meet the Tree Day). Not lit yet.", q:"Rockefeller Center"},
-    {n:"MoMA", tag:"book online", d:"11 W 53rd St, 2 min from Rockefeller Center. About 2 hours: focus on the 5th floor (Van Gogh, Monet, Picasso, Warhol).", q:"Museum of Modern Art, 11 West 53rd Street, New York"},
-    {n:"MoMA Design Store", tag:"🛍 gift", d:"Best gift: a MoMA design object. Across the street from the museum.", q:"MoMA Design Store, 44 West 53rd Street, New York"}
+   {h:"Midday", items:[
+    {n:"Talea Beer Co.", t:"12:00", tag:"booked", d:"87 Richardson St, Williamsburg", q:"Talea Beer Co, 87 Richardson Street, Brooklyn, NY 11211"}
    ]},
-   {h:"Evening", items:[
-    {n:"Yankees Clubhouse", tag:"🛍 cap", d:"Most iconic: a Yankees cap. 745 Seventh Ave, on the way to Times Square.", q:"Yankees Clubhouse, 745 7th Avenue, New York, NY 10019"},
-    {n:"Central Perk coffeehouse", d:"Orange sofa, walk-in", q:"Central Perk Coffeehouse, 20 Times Square, New York"},
-    {n:"Times Square after dark", q:"Times Square"}
+   {h:"Afternoon · Williamsburg", items:[
+    {n:"Tangerine", d:"Art-school, cool-girl independent labels. 5 min from Talea.", q:"Tangerine, 616 Lorimer Street, Brooklyn"},
+    {n:"Maimoun", d:"Young independent designers, closest to your taste", q:"Maimoun, 111 Grand Street, Brooklyn"},
+    {n:"Marmalade", d:"Independent boutique, more accessible prices", q:"Marmalade, 285 Grand Street, Brooklyn"},
+    {n:"Vintage on Grand St and Bedford Ave", tag:"🛍 sweatshirt", d:"Best fashion find: a vintage NYC sweatshirt or T-shirt.", q:"Bedford Avenue, Williamsburg, Brooklyn"}
+   ]},
+   {h:"Late afternoon · DUMBO", items:[
+    {n:"NYC Ferry to DUMBO", t:"~15:00", d:"East River route. Buy in the NYC Ferry app or at the pier.", q:"NYC Ferry North Williamsburg"},
+    {n:"Manhattan Bridge view", d:"Washington St", q:"Washington Street and Water Street, Brooklyn"},
+    {n:"Brooklyn Bridge Park", q:"Brooklyn Bridge Park"}
+   ]},
+   {h:"Sunset and evening", items:[
+    {n:"Walk the Brooklyn Bridge into Manhattan", t:"~16:00", d:"30–40 min", q:"Brooklyn Bridge pedestrian entrance, Washington Street, Brooklyn"},
+    {n:"9/11 Memorial", tag:"optional", q:"9/11 Memorial, New York"},
+    {n:"Century 21", tag:"optional", d:"Discount designer fashion. Worth checking for Calvin Klein underwear too.", q:"Century 21, 22 Cortlandt Street, New York"},
+    {n:"NYC Ferry home from Pier 11", d:"Astoria route, under the bridges. Lit-up skyline.", q:"Pier 11 Wall Street, New York"}
    ]}
   ]},
- {id:"d8", date:"2026-11-08", tab:"Sun 8", title:"Zara, Central Park and the Met", sub:"N/W to 57 St–7 Av, then walk to Columbus Circle",
-  tip:"Buy Met tickets online the day before to skip the desk queue. Check Zara's Sunday opening time before you go.",
+ {id:"d8", date:"2026-11-08", tab:"Sun 8", title:"Central Park and the Met", sub:"N/W to 5 Av/59 St",
+  tip:"Buy Met tickets online the day before to skip the desk queue.",
   sections:[
    {h:"Morning", items:[
-    {n:"Zara Upper West Side", d:"1963 Broadway at W 66th St, near Lincoln Center", q:"Zara, 1963 Broadway, New York, NY 10023"},
-    {n:"Enter Central Park at Columbus Circle", q:"Columbus Circle, New York"},
     {n:"Central Park: the Mall", q:"The Mall, Central Park"},
     {n:"Bethesda Terrace", q:"Bethesda Terrace, Central Park"}
    ]},
@@ -141,7 +147,8 @@ const DAYS = [
    ]},
    {h:"SoHo · Broome St", items:[
     {n:"Flying Solo", d:"Rotating independent designers", q:"Flying Solo, 419 Broome Street, New York"},
-    {n:"3NY", d:"Eclectic concept store", q:"3NY, 448 Broome Street, New York"}
+    {n:"3NY", d:"Eclectic concept store", q:"3NY, 448 Broome Street, New York"},
+    {n:"Calvin Klein flagship", tag:"🛍 underwear", d:"530 Broadway at Spring St. Opened Dec 2025, with denim and underwear at its centre.", q:"Calvin Klein, 530 Broadway, New York, NY 10012"}
    ]},
    {h:"Nolita", items:[
     {n:"Lingo", d:"Handmade, limited-edition pieces by emerging designers", q:"Lingo, 229 Mott Street, New York"},
@@ -156,26 +163,24 @@ const DAYS = [
     {n:"DUO NYC", tag:"optional", d:"East Village, 15 min north. Vintage and minimal.", q:"DUO NYC, 324 East 9th Street, New York"}
    ]}
   ]},
- {id:"d10", date:"2026-11-10", tab:"Tue 10", title:"Brooklyn, the bridge and a boat home", sub:"N/W to 14 St–Union Sq, then L to Bedford Av (about 40 min)",
-  tip:"Sunset is around 16:45. Aim to start the bridge walk at about 16:00.",
+ {id:"d10b", date:"2026-11-10", tab:"Tue 10", title:"Midtown classics and MoMA", sub:"N/W to Times Sq–42 St. Everything is within a 15-minute walk.",
+  tip:"Library reading room: visiting hour 10:00–11:00 (last entry 10:50), or the free 15-min tour at 11:20. Sign up in the McGraw Rotunda, 3rd floor, from 10:50. First 25 people only. MoMA is quieter on a weekday.",
   sections:[
-   {h:"Late morning · Williamsburg", items:[
-    {n:"Maimoun", d:"Young independent designers, closest to your taste", q:"Maimoun, 111 Grand Street, Brooklyn"},
-    {n:"Marmalade", d:"Independent boutique, more accessible prices", q:"Marmalade, 285 Grand Street, Brooklyn"},
-    {n:"Tangerine", d:"Art-school, cool-girl independent labels", q:"Tangerine, 616 Lorimer Street, Brooklyn"},
-    {n:"Vintage on Grand St and Bedford Ave", tag:"🛍 sweatshirt", d:"Best fashion find: a vintage NYC sweatshirt or T-shirt.", q:"Bedford Avenue, Williamsburg, Brooklyn"},
-    {n:"Lunch in Williamsburg"}
+   {h:"Morning", items:[
+    {n:"New York Public Library", t:"10:00", d:"Rose Main Reading Room. Allow about an hour.", q:"New York Public Library Stephen A. Schwarzman Building"},
+    {n:"Bryant Park Winter Village", d:"Free ice rink and 180+ holiday stalls behind the library", q:"Bryant Park, New York"}
    ]},
-   {h:"Afternoon · DUMBO", items:[
-    {n:"NYC Ferry to DUMBO", d:"East River route. Buy in the NYC Ferry app or at the pier.", q:"NYC Ferry North Williamsburg"},
-    {n:"Manhattan Bridge view", d:"Washington St", q:"Washington Street and Water Street, Brooklyn"},
-    {n:"Brooklyn Bridge Park", q:"Brooklyn Bridge Park"}
+   {h:"Afternoon", items:[
+    {n:"Grand Central Terminal", tag:"quick look", d:"15 minutes is enough. Look up at the concourse ceiling.", q:"Grand Central Terminal"},
+    {n:"Fifth Avenue to St Patrick's Cathedral", q:"St. Patrick's Cathedral, New York"},
+    {n:"Rockefeller Center", d:"The Christmas tree will be up, though not lit yet.", q:"Rockefeller Center"},
+    {n:"MoMA", tag:"book online", d:"11 W 53rd St, 2 min from Rockefeller Center. About 2 hours: focus on the 5th floor (Van Gogh, Monet, Picasso, Warhol).", q:"Museum of Modern Art, 11 West 53rd Street, New York"},
+    {n:"MoMA Design Store", tag:"🛍 gift", d:"Best gift: a MoMA design object. Across the street from the museum.", q:"MoMA Design Store, 44 West 53rd Street, New York"}
    ]},
-   {h:"Sunset and evening", items:[
-    {n:"Walk the Brooklyn Bridge into Manhattan", t:"~16:00", d:"30–40 min", q:"Brooklyn Bridge pedestrian entrance, Washington Street, Brooklyn"},
-    {n:"9/11 Memorial", tag:"optional", q:"9/11 Memorial, New York"},
-    {n:"Century 21", tag:"optional", d:"Discount designer fashion", q:"Century 21, 22 Cortlandt Street, New York"},
-    {n:"NYC Ferry home from Pier 11", d:"Astoria route, under the bridges. Lit-up skyline.", q:"Pier 11 Wall Street, New York"}
+   {h:"Evening", items:[
+    {n:"Yankees Clubhouse", tag:"🛍 cap", d:"Most iconic: a Yankees cap. 745 Seventh Ave, on the way to Times Square.", q:"Yankees Clubhouse, 745 7th Avenue, New York, NY 10019"},
+    {n:"Central Perk coffeehouse", d:"Orange sofa, walk-in", q:"Central Perk Coffeehouse, 20 Times Square, New York"},
+    {n:"Times Square after dark", q:"Times Square"}
    ]}
   ]},
  {id:"d11", date:"2026-11-11", tab:"Wed 11", title:"Fly home", sub:"JFK · 17:35 · be at the airport by 14:30",
@@ -204,13 +209,14 @@ const INFO = `
  <p>If you're unwell, BTA can arrange a video or phone consultation with a Latvian doctor on the same number. Ring them before going to a US clinic if you can, because they can point you somewhere they work with.</p></div>
 <section><h3>Before you fly</h3><div id="prelist"></div></section>
 <div class="card"><h4>🛍 Shopping list</h4><ul>
- <li><b>Most iconic:</b> Yankees cap · Yankees Clubhouse, 745 Seventh Ave (Sat evening)</li>
- <li><b>Best fashion find:</b> vintage NYC sweatshirt or T-shirt · Williamsburg vintage shops (Tue), or DUO NYC (Mon)</li>
- <li><b>Best gift:</b> MoMA design object · MoMA Design Store, 44 W 53rd St (Sat)</li></ul></div>
+ <li><b>Most iconic:</b> Yankees cap · Yankees Clubhouse, 745 Seventh Ave (Tue evening)</li>
+ <li><b>Best fashion find:</b> vintage NYC sweatshirt or T-shirt · Williamsburg vintage shops (Sat), or DUO NYC (Mon)</li>
+ <li><b>Best gift:</b> MoMA design object · MoMA Design Store, 44 W 53rd St (Tue)</li>
+ <li><b>Calvin Klein underwear:</b> CK flagship, 530 Broadway, SoHo (Mon). Century 21 sometimes has it cheaper (Sat).</li></ul></div>
 <div class="card"><h4>🎟 What to book</h4><ul>
- <li><b>MoMA</b> (Sat): online a day or two before, weekends get busy</li>
+ <li><b>MoMA</b> (Tue): online a day or two before</li>
  <li><b>The Met</b> (Sun): online the day before, no timed slot needed</li>
- <li><b>Circle Line</b> (Tue): only if you choose it over the NYC Ferry</li>
+ <li><b>Circle Line</b> (Sat): only if you choose it over the NYC Ferry</li>
  <li>No booking needed: library, Grand Central, parks, 9/11 plaza, ferries, shops</li></ul></div>
 <div class="card"><h4>✈️ JFK transfers</h4>
  <p><b>Arriving:</b> official taxi rank, metered to Queens (about $50–70 with tip). Or AirTrain to Jamaica plus subway ($11.75, 75–90 min, stairs).</p>
